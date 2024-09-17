@@ -86,15 +86,15 @@ return (
   <div className="App">
     <h1>Zombie Fighters</h1>
     <p>Money: ${money}</p>
-    <ul className="fighter-list">
+    <ul>
       {zombieFighters.map((fighter, index) => (
-        <li key={index} className="fighter-item">
+        <li key={index}>
           <img src={fighter.img} alt={fighter.name} />
           <h2>{fighter.name}</h2>
           <p>Price: ${fighter.price}</p>
           <p>Strength: {fighter.strength}</p>
           <p>Agility: {fighter.agility}</p>
-          <button onClick={() => addToTeam(fighter)}>Add to Team</button>
+          <button>Add to Team</button>
         </li>
       ))}
     </ul>
