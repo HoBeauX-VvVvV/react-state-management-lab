@@ -80,5 +80,26 @@ const [ zombieFighters, setZombieFighters ] = useState([
     img: 'https://via.placeholder.com/150/602b9e',
   }
 ]);
+
+
+return (
+  <div className="App">
+    <h1>Zombie Fighters</h1>
+    <p>Money: ${money}</p>
+    <ul className="fighter-list">
+      {zombieFighters.map((fighter, index) => (
+        <li key={index} className="fighter-item">
+          <img src={fighter.img} alt={fighter.name} />
+          <h2>{fighter.name}</h2>
+          <p>Price: ${fighter.price}</p>
+          <p>Strength: {fighter.strength}</p>
+          <p>Agility: {fighter.agility}</p>
+          <button onClick={() => addToTeam(fighter)}>Add to Team</button>
+        </li>
+      ))}
+    </ul>
+    </div>
+  )
 }
 
+export default App;    
