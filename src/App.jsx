@@ -81,6 +81,15 @@ const [ zombieFighters, setZombieFighters ] = useState([
   }
 ]);
 
+const handleAddFighter = (fighter) => {
+  if (money >= fighter.price) {
+    setMoney(money - fighter.price);
+    setTeam([...team, fighter]);
+  } else {
+    console.log("Not enough money");
+  }
+};
+
 
 return (
   <div className="App">
@@ -94,12 +103,30 @@ return (
           <p>Price: ${fighter.price}</p>
           <p>Strength: {fighter.strength}</p>
           <p>Agility: {fighter.agility}</p>
-          <button>Add to Team</button>
+          <button onClick={() => handleAddFighter(fighter)}>Add to Team</button>
         </li>
       ))}
     </ul>
+   
+   
+    <h2>Your Team</h2>
+      <ul className="team-list">
+        {team.length > 0 ? (
+          team.map((fighter, index) => (
+            <li key={index}>
+              <img src={fighter.img} alt={fighter.name} />
+              <h3>{fighter.name}</h3>
+              <p>Strength: {fighter.strength}</p>
+              <p>Agility: {fighter.agility}</p>
+            </li>
+          ))
+        ) : (
+          <p>Your team is empty!</p>
+        )}
+      </ul>
     </div>
-  )
-}
+  );
+};
+
 
 export default App;    
