@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css';
 
 
@@ -7,6 +7,8 @@ const App = () => {
 const [ team, setTeam ] = useState ([]);
 
 const [ money, setMoney ] = useState (100)
+
+const [ totalStrength, setTotalStrength ] = useState (0)
 
 const [ zombieFighters, setZombieFighters ] = useState([
   {
@@ -85,21 +87,32 @@ const handleAddFighter = (fighter) => {
   if (money >= fighter.price) {
     setMoney(money - fighter.price);
     setTeam([...team, fighter]);
+    setTotalStrength(findTotalStrength[team, fighter])
   } else {
     console.log("Not enough money");
   }
 };
 
+const findTotalStrength = (team) => {
+  const strength = team.reduce((acc, fighter) => acc + fighter.strength, 0);
+  return strength;
+};
+ 
+useEffect(() => {
+  setTotalStrength(findTotalStrength(team));
+}, [team]);
+
 
 return (
-  <div className="App">
+  <div>
     <h1>Zombie Fighters</h1>
     <p>Money: ${money}</p>
     <ul>
       {zombieFighters.map((fighter, index) => (
         <li key={index}>
+           <h2>{fighter.name}</h2>
           <img src={fighter.img} alt={fighter.name} />
-          <h2>{fighter.name}</h2>
+         
           <p>Price: ${fighter.price}</p>
           <p>Strength: {fighter.strength}</p>
           <p>Agility: {fighter.agility}</p>
@@ -110,23 +123,24 @@ return (
    
    
     <h2>Your Team</h2>
-      <ul className="team-list">
-        {team.length > 0 ? (
-          team.map((fighter, index) => (
+    <p>Total Team Strength: {totalStrength}</p>
+      {team.length === 0 ? (
+        <p>Pick some team members!</p>
+      ) : (
+        <ul>
+          {team.map((fighter, index) => (
             <li key={index}>
               <img src={fighter.img} alt={fighter.name} />
               <h3>{fighter.name}</h3>
+              <p>Price: ${fighter.price}</p>
               <p>Strength: {fighter.strength}</p>
               <p>Agility: {fighter.agility}</p>
             </li>
-          ))
-        ) : (
-          <p>Your team is empty!</p>
-        )}
-      </ul>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
-
 
 export default App;    
