@@ -144,6 +144,7 @@ return (
               <p>Price: ${fighter.price}</p>
               <p>Strength: {fighter.strength}</p>
               <p>Agility: {fighter.agility}</p>
+              <button onClick={() => handleRemoveFighter(fighter)}>Remove</button>
             </li>
           ))}
         </ul>
